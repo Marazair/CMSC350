@@ -7,6 +7,16 @@ public class BST<T extends Comparable<T>>{
 		
 	}
 	
+	
+	public void insertNode(T value) {
+		
+	}
+	
+	public String inOrderTraversal() {
+		return "";
+	}
+	
+	
 	class BSTnode {
 		private T value;
 		private BSTnode left;
