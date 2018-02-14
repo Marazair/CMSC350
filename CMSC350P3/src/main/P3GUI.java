@@ -91,7 +91,7 @@ public class P3GUI extends JPanel implements ActionListener{
 
 	public static void main(String[] args) {
 		//Create the top-level frame with a P1GUI in it.
-		JFrame frame = new JFrame("Infix Evaluator");
+		JFrame frame = new JFrame("Binary Search Tree Sort");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		P3GUI gui = new P3GUI();
@@ -100,8 +100,6 @@ public class P3GUI extends JPanel implements ActionListener{
 		frame.setContentPane(gui);
 		frame.pack();
 		frame.setVisible(true);
-		
-
 	}
 
 	@Override
