@@ -1,15 +1,19 @@
 package main;
 
 public class BST<T extends Comparable<T>>{
-	BSTnode root;
+	BSTNode root;
 	
-	public BST() {
-		
+	public BST(T value) {
+		root = new BSTNode<T>(value);
 	}
 	
 	
 	public void insertNode(T value) {
-		
+		insertNodeRecursive(value, root);
+	}
+	
+	public void insertNodeRecursive(T value, BSTNode root) {
+		BSTNode<T> node = new BSTNode<T>(value);
 	}
 	
 	public String inOrderTraversal() {
@@ -17,13 +21,13 @@ public class BST<T extends Comparable<T>>{
 	}
 	
 	
-	class BSTnode {
+	class BSTNode<T extends Comparable<T>>{
 		private T value;
-		private BSTnode left;
-		private BSTnode right;
+		private BSTNode left;
+		private BSTNode right;
 		
-		BSTnode() {
-			
+		BSTNode(T value) {
+			this.value = value;
 		}
 	}
 }
