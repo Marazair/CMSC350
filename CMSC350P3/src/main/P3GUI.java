@@ -128,23 +128,23 @@ public class P3GUI extends JPanel implements ActionListener{
 		List<String> tokens = new ArrayList<String>();
 		Scanner scanner = new Scanner(string);
 		String currentToken;
-		String regex;
+		String regex = "";
 		
+		//Declare the proper pattern based on which button is pressed.
 		if (integer.isSelected()) {
 			regex = "\\d+";
 		}
-		else {
+		else if (fraction.isSelected()){
 			regex = "\\d+/\\d+";
 		}
 		
-		if (integer.isSelected()){
-			while (scanner.hasNext()) {
-				currentToken = scanner.next();
-				if(currentToken.matches(regex))
-					tokens.add(currentToken);
-				else
-					throw new NumberFormatException();
-			}
+		//Add tokens if they match the pattern. If not, throw an exception.
+		while (scanner.hasNext()) {
+			currentToken = scanner.next();
+			if(currentToken.matches(regex))
+				tokens.add(currentToken);
+			else
+				throw new NumberFormatException();
 		}
 		
 		scanner.close();
