@@ -1,6 +1,6 @@
 package main;
 
-public class Fraction implements Comparable{
+public class Fraction implements Comparable<Fraction>{
 	private double numValue;
 	private String stringValue;
 	private String[] fraction;
@@ -18,9 +18,11 @@ public class Fraction implements Comparable{
 	}
 	
 	@Override
-	public int compareTo(Object fraction) {
-		if (this.numValue > ((Fraction)fraction).getNum())
+	public int compareTo(Fraction fraction) {
+		if (this.numValue > fraction.getNum())
 			return 1;
+		else if (this.numValue < fraction.getNum())
+			return -1;
 		else
 			return 0;
 		

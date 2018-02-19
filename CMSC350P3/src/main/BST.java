@@ -14,6 +14,23 @@ public class BST<T extends Comparable<T>>{
 	
 	public void insertNodeRecursive(T value, BSTNode root) {
 		BSTNode<T> node = new BSTNode<T>(value);
+		
+		if (value.compareTo(node.value) < 0) {
+			if (node.left == null) {
+				node.left = new BSTNode<T>(value);
+			}
+			else {
+				insertNodeRecursive(value, node.left);
+			}
+		}
+		else {
+			if (node.right == null) {
+				node.right = new BSTNode<T>(value);
+			}
+			else {
+				insertNodeRecursive(value, node.right);
+			}
+		}
 	}
 	
 	public String inOrderTraversal() {
