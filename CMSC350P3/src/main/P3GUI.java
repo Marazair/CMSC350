@@ -2,6 +2,11 @@ package main;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.regex.Pattern;
+
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -9,6 +14,11 @@ public class P3GUI extends JPanel implements ActionListener{
 	
 	private TextField inputField;
 	private TextField outputField;
+	private List<String> tokens;
+	private JRadioButton ascend;
+	private JRadioButton descend;
+	private JRadioButton fraction;
+	private JRadioButton integer;
 	
 	public P3GUI() {
 		//Create the main panel, padding the edges.
@@ -30,12 +40,12 @@ public class P3GUI extends JPanel implements ActionListener{
 		sort.addActionListener(this);
 		
 		//Create radio buttons for sort order and prepare to listen.
-		JRadioButton ascend = new JRadioButton("Ascending");
+		ascend = new JRadioButton("Ascending");
 		ascend.setActionCommand("ascend");
 		ascend.setSelected(true);
 		ascend.addActionListener(this);
 		
-		JRadioButton descend = new JRadioButton("Descending");
+		descend = new JRadioButton("Descending");
 		descend.setActionCommand("descend");
 		descend.addActionListener(this);
 		
@@ -45,12 +55,12 @@ public class P3GUI extends JPanel implements ActionListener{
 		order.add(descend);
 		
 		//Create radio buttons for input type and prepare to listen.
-		JRadioButton integer = new JRadioButton("Integer");
+		integer = new JRadioButton("Integer");
 		integer.setActionCommand("int");
 		integer.setSelected(true);
 		integer.addActionListener(this);
 		
-		JRadioButton fraction = new JRadioButton("Fraction");
+		fraction = new JRadioButton("Fraction");
 		fraction.setActionCommand("fraction");
 		fraction.addActionListener(this);
 		
@@ -113,5 +123,31 @@ public class P3GUI extends JPanel implements ActionListener{
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	public List<String> getTokens(String string) throws NumberFormatException{
+		List<String> tokens = new ArrayList<String>();
+		Scanner scanner = new Scanner(string);
+		String currentToken;
+		String regex;
+		
+		if (integer.isSelected()) {
+			regex = "\\d+";
+		}
+		else {
+			regex = "\\d+/\\d+";
+		}
+		
+		if (integer.isSelected()){
+			while (scanner.hasNext()) {
+				currentToken = scanner.next();
+				if(currentToken.matches(regex))
+					tokens.add(currentToken);
+				else
+					throw new NumberFormatException();
+			}
+		}
+		
+		scanner.close();
+		return tokens;
+	}
 }
