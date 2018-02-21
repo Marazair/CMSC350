@@ -14,13 +14,15 @@ public class P3GUI extends JPanel implements ActionListener{
 	
 	private TextField inputField;
 	private TextField outputField;
-	private List<String> tokens;
 	private JRadioButton ascend;
 	private JRadioButton descend;
 	private JRadioButton fraction;
 	private JRadioButton integer;
+	private String currentType;
+	private String currentOrder;
 	
 	public P3GUI() {
+		
 		//Create the main panel, padding the edges.
 		super.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		Border padding = BorderFactory.createEmptyBorder(10, 10, 10, 10);
@@ -43,6 +45,9 @@ public class P3GUI extends JPanel implements ActionListener{
 		ascend = new JRadioButton("Ascending");
 		ascend.setActionCommand("ascend");
 		ascend.setSelected(true);
+		
+		currentOrder = "ascend";
+		
 		ascend.addActionListener(this);
 		
 		descend = new JRadioButton("Descending");
@@ -58,6 +63,9 @@ public class P3GUI extends JPanel implements ActionListener{
 		integer = new JRadioButton("Integer");
 		integer.setActionCommand("int");
 		integer.setSelected(true);
+		
+		currentType = "int";
+		
 		integer.addActionListener(this);
 		
 		fraction = new JRadioButton("Fraction");
@@ -120,52 +128,14 @@ public class P3GUI extends JPanel implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand().equals("sort")) {
-			if (fraction.isSelected()) {
-				List<Fraction> list = getTokensFrac(inputField.getText());
-				System.out.println(list.toString());
-			}
-			else if (integer.isSelected()) {
-				List<Integer> list = getTokensInt(inputField.getText());
-				System.out.println(list.toString());
-			}
+		if (e.getActionCommand().equals("sort")) {
+			new TreeBuilder(inputField.getText(), currentType, currentOrder);
 		}
-		
-	}
-	
-	public List<Fraction> getTokensFrac(String string) throws NumberFormatException {
-		List<Fraction> tokens = new ArrayList<Fraction>();
-		Scanner scanner = new Scanner(string);
-		String currentToken;
-		
-		//Add tokens if they match the pattern. If not, throw an exception.
-		while (scanner.hasNext()) {
-			currentToken = scanner.next();
-			if(currentToken.matches("\\d+/\\d+"))
-				tokens.add(new Fraction(currentToken));
-			else
-				throw new NumberFormatException();
+		else if (e.getActionCommand().equals("fraction") || e.getActionCommand().equals("int")) {
+			currentType = e.getActionCommand();
 		}
-		
-		scanner.close();
-		return tokens;
-	}
-	
-	public List<Integer> getTokensInt(String string) throws NumberFormatException {
-		List<Integer> tokens = new ArrayList<Integer>();
-		Scanner scanner = new Scanner(string);
-		String currentToken;
-		
-		//Add tokens if they match the pattern. If not, throw an exception.
-		while (scanner.hasNext()) {
-			currentToken = scanner.next();
-			if(currentToken.matches("\\d+"))
-				tokens.add(Integer.parseInt(currentToken));
-			else
-				throw new NumberFormatException();
+		else if (e.getActionCommand().equals("ascend") || e.getActionCommand().equals("descend")) {
+			currentOrder = e.getActionCommand();
 		}
-		
-		scanner.close();
-		return tokens;
 	}
 }
