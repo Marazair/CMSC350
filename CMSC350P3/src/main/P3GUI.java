@@ -121,31 +121,46 @@ public class P3GUI extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("sort")) {
-			List<String> list = getTokens(inputField.getText());
-			System.out.println(list.toString());
+			if (fraction.isSelected()) {
+				List<Fraction> list = getTokensFrac(inputField.getText());
+				System.out.println(list.toString());
+			}
+			else if (integer.isSelected()) {
+				List<Integer> list = getTokensInt(inputField.getText());
+				System.out.println(list.toString());
+			}
 		}
 		
 	}
 	
-	public List<String> getTokens(String string) throws NumberFormatException{
-		List<String> tokens = new ArrayList<String>();
+	public List<Fraction> getTokensFrac(String string) throws NumberFormatException {
+		List<Fraction> tokens = new ArrayList<Fraction>();
 		Scanner scanner = new Scanner(string);
 		String currentToken;
-		String regex = "";
-		
-		//Declare the proper pattern based on which button is pressed.
-		if (integer.isSelected()) {
-			regex = "\\d+";
-		}
-		else if (fraction.isSelected()){
-			regex = "\\d+/\\d+";
-		}
 		
 		//Add tokens if they match the pattern. If not, throw an exception.
 		while (scanner.hasNext()) {
 			currentToken = scanner.next();
-			if(currentToken.matches(regex))
-				tokens.add(currentToken);
+			if(currentToken.matches("\\d+/\\d+"))
+				tokens.add(new Fraction(currentToken));
+			else
+				throw new NumberFormatException();
+		}
+		
+		scanner.close();
+		return tokens;
+	}
+	
+	public List<Integer> getTokensInt(String string) throws NumberFormatException {
+		List<Integer> tokens = new ArrayList<Integer>();
+		Scanner scanner = new Scanner(string);
+		String currentToken;
+		
+		//Add tokens if they match the pattern. If not, throw an exception.
+		while (scanner.hasNext()) {
+			currentToken = scanner.next();
+			if(currentToken.matches("\\d+"))
+				tokens.add(Integer.parseInt(currentToken));
 			else
 				throw new NumberFormatException();
 		}
