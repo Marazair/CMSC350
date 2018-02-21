@@ -19,12 +19,7 @@ public class Fraction implements Comparable<Fraction>{
 	
 	@Override
 	public int compareTo(Fraction fraction) {
-		if (this.numValue > fraction.getNum())
-			return 1;
-		else if (this.numValue < fraction.getNum())
-			return -1;
-		else
-			return 0;
+		return (int)(numValue - fraction.getNum());
 		
 	}
 	
