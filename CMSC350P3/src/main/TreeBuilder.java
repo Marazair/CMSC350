@@ -6,46 +6,48 @@ import java.util.List;
 import java.util.Scanner;
 
 public class TreeBuilder {
-	BST<?> tree;
-	List<? extends Comparable> list;
+	private BST<?> tree;
+	private List<? extends Comparable> list;
+	private String string;
+	private String type;
+	private String sort;
 	
 	public TreeBuilder(String string, String type, String sort) {
-		if(type.equals("fraction")) {
-			list = getTokensFrac(string);
-			tree = new BST<Fraction>((Fraction) Collections.max(list));
-		}
+		this.string = string;
+		this.type = type;
+		this.sort = sort;
 	}
 	
-	private List<Fraction> getTokensFrac(String string) throws NumberFormatException {
-		List<Fraction> tokens = new ArrayList<Fraction>();
-		Scanner scanner = new Scanner(string);
-		String currentToken;
-		
-		//Add tokens if they match the pattern. If not, throw an exception.
-		while (scanner.hasNext()) {
-			currentToken = scanner.next();
-			if(currentToken.matches("\\d+/\\d+"))
-				tokens.add(new Fraction(currentToken));
-			else
-				throw new NumberFormatException();
-		}
-		
-		scanner.close();
-		return tokens;
+	public void constructTree() {
+		tree = new BST (Collections.max(getTokens(string);
 	}
 	
-	private List<Integer> getTokensInt(String string) throws NumberFormatException {
-		List<Integer> tokens = new ArrayList<Integer>();
+	public List<? extends Comparable> getTokens(String string) throws NumberFormatException{
+		List<? extends Comparable> tokens;
 		Scanner scanner = new Scanner(string);
 		String currentToken;
+		String regex = "";
 		
-		//Add tokens if they match the pattern. If not, throw an exception.
-		while (scanner.hasNext()) {
-			currentToken = scanner.next();
-			if(currentToken.matches("\\d+"))
-				tokens.add(Integer.parseInt(currentToken));
-			else
-				throw new NumberFormatException();
+		if (type.equals("fraction")) {
+			regex = "\\d+/\\d+";
+			tokens = new ArrayList<Fraction>();
+			while(scanner.hasNext()) {
+				currentToken = scanner.next();
+				if(currentToken.matches(regex))
+					tokens.add(new Fraction(currentToken));
+				else
+					throw new NumberFormatException();
+			}
+		}
+		else if (type.equals("int")){
+			regex = "\\d+";
+			while(scanner.hasNext()) {
+				currentToken = scanner.next();
+				if(currentToken.matches(regex))
+					tokens = new ArrayList<Fraction>();
+				else
+					throw new NumberFormatException();
+			}
 		}
 		
 		scanner.close();
