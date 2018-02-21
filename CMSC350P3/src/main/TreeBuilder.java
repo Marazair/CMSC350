@@ -19,7 +19,7 @@ public class TreeBuilder {
 	}
 	
 	public void constructTree() {
-		tree = new BST (Collections.max(getTokens(string);
+		tree = new BST (Collections.max(getTokens(string)));
 	}
 	
 	public List<? extends Comparable> getTokens(String string) throws NumberFormatException{
@@ -41,10 +41,11 @@ public class TreeBuilder {
 		}
 		else if (type.equals("int")){
 			regex = "\\d+";
+			tokens = new ArrayList<Integer>();
 			while(scanner.hasNext()) {
 				currentToken = scanner.next();
 				if(currentToken.matches(regex))
-					tokens = new ArrayList<Fraction>();
+					tokens.add(Integer.parseInt(currentToken));
 				else
 					throw new NumberFormatException();
 			}
