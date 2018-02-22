@@ -20,7 +20,6 @@ public class P3GUI extends JPanel implements ActionListener{
 	private JRadioButton descend;
 	private JRadioButton fraction;
 	private JRadioButton integer;
-	private String currentType;
 	private String currentOrder;
 	
 	private static JFrame PopupFrame = new JFrame("PopUp");
@@ -67,8 +66,6 @@ public class P3GUI extends JPanel implements ActionListener{
 		integer = new JRadioButton("Integer");
 		integer.setActionCommand("int");
 		integer.setSelected(true);
-		
-		currentType = "int";
 		
 		integer.addActionListener(this);
 		

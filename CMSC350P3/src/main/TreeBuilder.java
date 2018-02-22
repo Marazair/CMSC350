@@ -23,6 +23,9 @@ public class TreeBuilder<T extends Comparable<T>> {
 	public void constructTree() throws NumberFormatException {
 		list = getTokens();
 		tree = new BST<T> (Collections.max(list));
+		for (int i = 0; i < list.size(); i++) {
+			tree.insertNode(list.get(i));
+		}
 	}
 	
 	private List<T> getTokens() throws NumberFormatException {
