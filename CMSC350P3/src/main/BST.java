@@ -1,3 +1,9 @@
+/*
+ * File Name: BST.java
+ * Name: Nick Mills
+ * Date: 2/15/18
+ * Purpose: Contains logic for constructing a Binary Sort Tree and processing its contents.
+ */
 package main;
 
 public class BST<T extends Comparable<T>>{

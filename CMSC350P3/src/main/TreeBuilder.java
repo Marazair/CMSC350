@@ -1,7 +1,7 @@
 /*
  * File Name: TreeBuilder.java
  * Name: Nick Mills
- * Date: 2/15/18
+ * Date: 2/20/18
  * Purpose: Contains the structure for building a BST.
  */
 
