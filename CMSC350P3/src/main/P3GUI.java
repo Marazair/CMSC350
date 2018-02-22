@@ -142,10 +142,8 @@ public class P3GUI extends JPanel implements ActionListener{
 					try {
 						tree.constructTree();
 					} 
-					catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-							| InvocationTargetException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+					catch (NumberFormatException nfe) {
+						JOptionPane.showMessageDialog(PopupFrame, "Please input the value in the proper format.");
 					}
 				} 
 				catch (NoSuchMethodException | SecurityException | ClassNotFoundException e1) {
@@ -161,10 +159,8 @@ public class P3GUI extends JPanel implements ActionListener{
 					try {
 						tree.constructTree();
 					} 
-					catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-							| InvocationTargetException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+					catch (NumberFormatException nfe) {
+						JOptionPane.showMessageDialog(PopupFrame, "Please input the value in the proper format.");
 					}
 				} 
 				catch (NoSuchMethodException | SecurityException | ClassNotFoundException e1) {

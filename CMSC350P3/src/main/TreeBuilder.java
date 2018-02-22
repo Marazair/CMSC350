@@ -20,19 +20,24 @@ public class TreeBuilder<T extends Comparable<T>> {
 		this.sort = sort;
 	}
 	
-	public void constructTree() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public void constructTree() throws NumberFormatException {
 		list = getTokens();
 		tree = new BST<T> (Collections.max(list));
 	}
 	
-	private List<T> getTokens() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	private List<T> getTokens() throws NumberFormatException {
 		List<T> tokens = new ArrayList<T>();
 		Scanner scanner = new Scanner(string);
 		String currentToken;
 		
 		while(scanner.hasNext()) {
 			currentToken = scanner.next();
-			tokens.add(type.newInstance(currentToken));
+			try {
+				tokens.add(type.newInstance(currentToken));
+			}
+			catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e){
+				throw new NumberFormatException();
+			}
 			
 		}
 		
