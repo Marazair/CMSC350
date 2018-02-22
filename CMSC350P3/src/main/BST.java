@@ -15,9 +15,7 @@ public class BST<T extends Comparable<T>>{
 			insertNodeRecursive(value, root);
 	}
 	
-	public void insertNodeRecursive(T value, BSTNode<T> root) {
-		BSTNode<T> node = new BSTNode<T>(value);
-		
+	public void insertNodeRecursive(T value, BSTNode<T> node) {
 		if (value.compareTo(node.value) < 0) {
 			if (node.left == null) {
 				node.left = new BSTNode<T>(value);

@@ -5,9 +5,9 @@ public class Fraction implements Comparable<Fraction>{
 	private String stringValue;
 	private String[] fraction;
 	
-	public Fraction(String stringValue) throws NumberFormatException {
+	public Fraction(String stringValue) throws MalformedFractionException {
 		if(!stringValue.matches("\\d+/\\d+")) {
-			throw new NumberFormatException();
+			throw new MalformedFractionException();
 		}
 		
 		this.stringValue = stringValue;

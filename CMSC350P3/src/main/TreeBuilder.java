@@ -44,8 +44,8 @@ public class TreeBuilder<T extends Comparable<T>> {
 		
 		while(scanner.hasNext()) {
 			currentToken = scanner.next();
-			if(!currentToken.equals("/"))
-				Integer.parseInt(currentToken);
+			if(!currentToken.matches("[\\d/]+"))
+				throw new NumberFormatException();
 			
 			try {
 				tokens.add(type.newInstance(currentToken));
