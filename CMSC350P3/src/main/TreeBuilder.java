@@ -33,7 +33,7 @@ public class TreeBuilder<T extends Comparable<T>> {
 			return tree.inOrderTraversal();
 		}
 		else {
-			return tree.inOrderTraversal();
+			return tree.reverseOrderTraversal();
 		}
 	}
 	
