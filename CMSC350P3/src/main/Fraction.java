@@ -5,9 +5,12 @@ public class Fraction implements Comparable<Fraction>{
 	private String stringValue;
 	private String[] fraction;
 	
-	public Fraction(String stringValue) {
-		this.stringValue = stringValue;
+	public Fraction(String stringValue) throws NumberFormatException {
+		if(stringValue.matches("\\d+/\\d+")) {
+			throw new NumberFormatException();
+		}
 		
+		this.stringValue = stringValue;
 		fraction = stringValue.split("/");
 		numValue = Double.parseDouble(fraction[0]) / Double.parseDouble(fraction[1]);
 		

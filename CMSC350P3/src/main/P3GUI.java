@@ -2,6 +2,7 @@ package main;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -129,13 +130,13 @@ public class P3GUI extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("sort")) {
-			new TreeBuilder(inputField.getText(), currentType, currentOrder);
+			if(fraction.isSelected()) {
+				
+			}
+			else if (integer.isSelected()) {
+				
+			}
 		}
-		else if (e.getActionCommand().equals("fraction") || e.getActionCommand().equals("int")) {
-			currentType = e.getActionCommand();
-		}
-		else if (e.getActionCommand().equals("ascend") || e.getActionCommand().equals("descend")) {
-			currentOrder = e.getActionCommand();
-		}
+		
 	}
 }
