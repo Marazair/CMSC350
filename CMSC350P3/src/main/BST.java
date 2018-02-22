@@ -3,36 +3,28 @@ package main;
 public class BST<T extends Comparable<T>>{
 	private BSTNode<T> root;
 	
-	
+	//Constructor which sets the root of the tree.
 	public BST(T value) {
 		root = new BSTNode<T>(value);
 	}
 	
+	//Basic structure for a node.
 	class BSTNode<T2 extends Comparable<T2>>{
 		private T2 value;
 		private BSTNode<T2> left;
 		private BSTNode<T2> right;
-		private boolean read;
 		
 		BSTNode(T2 value) {
 			this.value = value;
-			read = false;
-		}
-		
-		public boolean beenRead() {
-			return read;
-		}
-		
-		public void setRead() {
-			read = true;
 		}
 	}
 	
-	
+	//Recursive helper method for inserting nodes.
 	public void insertNode(T value) {
 		insertNodeRecursive(value, root);
 	}
 	
+	//Cascades lower numbers to the left and higher numbers to the right.
 	public void insertNodeRecursive(T value, BSTNode<T> node) {
 		if (value.compareTo(node.value) < 0) {
 			if (node.left == null) {
@@ -51,31 +43,35 @@ public class BST<T extends Comparable<T>>{
 			}
 		}
 	}
-	public String inOrderTraversal() {
-		return inOrderRecursive(root);
+	
+	//Recursive helper method for reading the tree in order.
+	public String inOrderTraversal(String sortOrder) {
+		if (sortOrder.equals("ascend"))
+			return ascendingOrderRecursive(root);
+		else
+			return descendingOrderRecursive(root);
 	}
 	
-	private String inOrderRecursive(BSTNode<T> node) {
+	//Reads tree in ascending order.
+	private String ascendingOrderRecursive(BSTNode<T> node) {
 		String leftValue = "";
 		String rightValue = "";
 		if(node.left != null)
-			leftValue = inOrderRecursive(node.left) + " ";
+			leftValue = ascendingOrderRecursive(node.left) + " ";
 		if(node.right != null)
-			rightValue = " " + inOrderRecursive(node.right); 
+			rightValue = " " + ascendingOrderRecursive(node.right); 
 		return leftValue + node.value + rightValue;
 	}
 	
-	public String reverseOrderTraversal() {
-		return reverseOrderRecursive(root);
-	}
 	
-	private String reverseOrderRecursive(BSTNode<T> node) {
+	//Reads tree in descending order.
+	private String descendingOrderRecursive(BSTNode<T> node) {
 		String leftValue = "";
 		String rightValue = "";
 		if(node.left != null)
-			leftValue = " " + reverseOrderRecursive(node.left);
+			leftValue = " " + descendingOrderRecursive(node.left);
 		if(node.right != null)
-			rightValue = reverseOrderRecursive(node.right) + " ";
+			rightValue = descendingOrderRecursive(node.right) + " ";
 		return rightValue + node.value + leftValue;
 			
 	}

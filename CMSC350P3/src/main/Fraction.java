@@ -1,3 +1,10 @@
+/*
+ * File Name: Fraction.java
+ * Name: Nick Mills
+ * Date: 2/15/18
+ * Purpose: Provide structure for a Fraction data type.
+ */
+
 package main;
 
 public class Fraction implements Comparable<Fraction>{
@@ -5,6 +12,7 @@ public class Fraction implements Comparable<Fraction>{
 	private String stringValue;
 	private String[] fraction;
 	
+	//Checks if the fraction is formed properly, then calculates the numeric value of the fraction and stores its string form.
 	public Fraction(String stringValue) throws MalformedFractionException {
 		if(!stringValue.matches("\\d+/\\d+")) {
 			throw new MalformedFractionException();
@@ -16,16 +24,18 @@ public class Fraction implements Comparable<Fraction>{
 		
 	}
 	
+	//Returns the original string form of the fraction.
 	public String toString() {
 		return stringValue;
 	}
 	
+	//Compares two fractions. Returns > 0 if passed fraction is smaller, < 0 if it is larger, and 0 if they are equal.
 	@Override
 	public int compareTo(Fraction fraction) {
-		if (numValue > fraction.numValue) {
+		if (numValue > fraction.getNum()) {
 			return 1;
 		}
-		else if (numValue < fraction.numValue) {
+		else if (numValue < fraction.getNum()) {
 			return -1;
 		}
 		else {
@@ -34,6 +44,7 @@ public class Fraction implements Comparable<Fraction>{
 		
 	}
 	
+	//Returns the numeric value of the fraction.
 	public double getNum() {
 		return numValue;
 	}

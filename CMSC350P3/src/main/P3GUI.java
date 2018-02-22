@@ -1,6 +1,6 @@
 /*
  * File Name: P3GUI.java
- * Name: Nicholas Mills
+ * Name: Nick Mills
  * Date: 2/15/18
  * Purpose: Provide an interface for interacting with the TreeBuilder class.
  */
@@ -134,7 +134,9 @@ public class P3GUI extends JPanel implements ActionListener{
 		frame.pack();
 		frame.setVisible(true);
 	}
-
+	
+	//Suppress warnings on unchecked casts; we know that it's the correct type.
+	@SuppressWarnings("unchecked")
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		//When the sort button is pressed, create a new TreeBuilder based on the current input type.
