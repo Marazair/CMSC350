@@ -30,9 +30,9 @@ public class P3GUI extends JPanel implements ActionListener{
 		JPanel inputPanel = new JPanel(new FlowLayout());
 		JPanel outputPanel = new JPanel(new FlowLayout());
 		JPanel buttonPanel = new JPanel(new FlowLayout());
-		JPanel radioPanel = new JPanel(new FlowLayout());
-		JPanel orderPanel = new JPanel(new FlowLayout());
-		JPanel typePanel = new JPanel(new FlowLayout());
+		JPanel radioPanel = new JPanel(new GridLayout(1, 2));
+		JPanel orderPanel = new JPanel(new GridLayout(2, 1));
+		JPanel typePanel = new JPanel(new GridLayout(2, 1));
 		
 		//Create the sort button and prepare to listen.
 		JButton sort = new JButton("Perform Sort");
@@ -104,9 +104,11 @@ public class P3GUI extends JPanel implements ActionListener{
 		radioPanel.add(orderPanel);
 		radioPanel.add(typePanel);
 		
+		orderPanel.setBorder(BorderFactory.createTitledBorder("Sort Order"));
 		orderPanel.add(ascend);
 		orderPanel.add(descend);
 		
+		typePanel.setBorder(BorderFactory.createTitledBorder("Input Type"));
 		typePanel.add(integer);
 		typePanel.add(fraction);
 	}
