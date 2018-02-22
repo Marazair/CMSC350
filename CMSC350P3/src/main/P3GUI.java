@@ -3,6 +3,7 @@ package main;
 import java.awt.*;
 import java.awt.event.*;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -21,6 +22,8 @@ public class P3GUI extends JPanel implements ActionListener{
 	private JRadioButton integer;
 	private String currentType;
 	private String currentOrder;
+	
+	private static JFrame PopupFrame = new JFrame("PopUp");
 	
 	public P3GUI() {
 		
@@ -130,12 +133,47 @@ public class P3GUI extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("sort")) {
+			TreeBuilder<?> tree;
 			if(fraction.isSelected()) {
-				
+				Constructor<Fraction> constructor;
+				try {
+					constructor = (Constructor<Fraction>) Class.forName("main.Fraction").getConstructor(String.class);
+					tree = new TreeBuilder<Fraction>(inputField.getText(), constructor, currentOrder);
+					try {
+						tree.constructTree();
+					} 
+					catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+							| InvocationTargetException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				} 
+				catch (NoSuchMethodException | SecurityException | ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 			else if (integer.isSelected()) {
-				
+				Constructor<Integer> constructor;
+				try {
+					constructor = (Constructor<Integer>) Class.forName("java.lang.Integer").getConstructor(String.class);
+					tree = new TreeBuilder<Integer>(inputField.getText(), constructor, currentOrder);
+					try {
+						tree.constructTree();
+					} 
+					catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+							| InvocationTargetException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				} 
+				catch (NoSuchMethodException | SecurityException | ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
+			
+			
 		}
 		
 	}

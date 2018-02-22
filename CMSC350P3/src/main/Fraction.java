@@ -6,7 +6,7 @@ public class Fraction implements Comparable<Fraction>{
 	private String[] fraction;
 	
 	public Fraction(String stringValue) throws NumberFormatException {
-		if(stringValue.matches("\\d+/\\d+")) {
+		if(!stringValue.matches("\\d+/\\d+")) {
 			throw new NumberFormatException();
 		}
 		
