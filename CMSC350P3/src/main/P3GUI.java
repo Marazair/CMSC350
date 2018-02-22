@@ -162,6 +162,8 @@ public class P3GUI extends JPanel implements ActionListener{
 				//If something breaks with the class paths, show a stack trace.
 				}
 				catch (NoSuchMethodException | SecurityException | ClassNotFoundException ge){
+					JOptionPane.showMessageDialog(PopupFrame, "There is a problem with accessing the files in the package.\n"
+							+ "Please refer to the console for a stack trace.");
 					ge.printStackTrace();
 				}
 				//Inform the user of anomalous characters if present.
