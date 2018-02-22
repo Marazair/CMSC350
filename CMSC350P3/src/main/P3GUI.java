@@ -1,3 +1,10 @@
+/*
+ * File Name: P3GUI.java
+ * Name: Nicholas Mills
+ * Date: 2/15/18
+ * Purpose: Provide an interface for interacting with the TreeBuilder class.
+ */
+
 package main;
 
 import java.awt.*;
@@ -33,6 +40,10 @@ public class P3GUI extends JPanel implements ActionListener{
 		JPanel radioPanel = new JPanel(new GridLayout(1, 2));
 		JPanel orderPanel = new JPanel(new GridLayout(2, 1));
 		JPanel typePanel = new JPanel(new GridLayout(2, 1));
+		
+		//Create section labels.
+		orderPanel.setBorder(BorderFactory.createTitledBorder("Sort Order"));
+		typePanel.setBorder(BorderFactory.createTitledBorder("Input Type"));
 		
 		//Create the sort button and prepare to listen.
 		JButton sort = new JButton("Perform Sort");
@@ -104,11 +115,9 @@ public class P3GUI extends JPanel implements ActionListener{
 		radioPanel.add(orderPanel);
 		radioPanel.add(typePanel);
 		
-		orderPanel.setBorder(BorderFactory.createTitledBorder("Sort Order"));
 		orderPanel.add(ascend);
 		orderPanel.add(descend);
 		
-		typePanel.setBorder(BorderFactory.createTitledBorder("Input Type"));
 		typePanel.add(integer);
 		typePanel.add(fraction);
 	}
@@ -128,37 +137,48 @@ public class P3GUI extends JPanel implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		//When the sort button is pressed, create a new TreeBuilder based on the current input type.
 		if (e.getActionCommand().equals("sort")) {
-			try {
-				TreeBuilder<?> tree;
-				if(currentType.equals("fraction")) {
-					Constructor<Fraction> constructor;
-					constructor = (Constructor<Fraction>) Class.forName("main.Fraction").getConstructor(String.class);
-					tree = new TreeBuilder<Fraction>(inputField.getText(), constructor, currentOrder);
+			if(!inputField.getText().equals("")) {
+				try {
+					TreeBuilder<?> tree;
+					if(currentType.equals("fraction")) {
+						Constructor<Fraction> constructor;
+						constructor = (Constructor<Fraction>) Class.forName("main.Fraction").getConstructor(String.class);
+						tree = new TreeBuilder<Fraction>(inputField.getText(), constructor, currentOrder);
+					}
+					else {
+						Constructor<Integer> constructor;
+						constructor = (Constructor<Integer>) Class.forName("java.lang.Integer").getConstructor(String.class);
+						tree = new TreeBuilder<Integer>(inputField.getText(), constructor, currentOrder);
+					}
+					
+					//Make the tree and output it in the correct order to the output field.
+					tree.constructTree();
+					outputField.setText(tree.getTree());
+				
+				//If something breaks with the class paths, show a stack trace.
 				}
-				else {
-					Constructor<Integer> constructor;
-					constructor = (Constructor<Integer>) Class.forName("java.lang.Integer").getConstructor(String.class);
-					tree = new TreeBuilder<Integer>(inputField.getText(), constructor, currentOrder);
+				catch (NoSuchMethodException | SecurityException | ClassNotFoundException ge){
+					ge.printStackTrace();
+				}
+				//Inform the user of anomalous characters if present.
+				catch (NumberFormatException nfe) {
+					JOptionPane.showMessageDialog(PopupFrame, "Non-numeric input.");
+				}
+				//Inform the user of a malformed fraction if present.
+				catch (MalformedFractionException mfe) {
+					JOptionPane.showMessageDialog(PopupFrame, "Malformed fraction.");
 				}
 				
-				tree.constructTree();
-				outputField.setText(tree.getTree());
 			}
-			catch (NoSuchMethodException | SecurityException | ClassNotFoundException ge){
-				ge.printStackTrace();
-			} 
-			catch (NumberFormatException nfe) {
-				JOptionPane.showMessageDialog(PopupFrame, "Non-numeric input.");
-			} 
-			catch (MalformedFractionException mfe) {
-				JOptionPane.showMessageDialog(PopupFrame, "Malformed fraction.");
-			}
-			
 		}
+		//Track when the sort order changes.
 		else if(e.getActionCommand().equals("ascend") || e.getActionCommand().equals("descend")) {
 			currentOrder = e.getActionCommand();
 		}
+		
+		//Track when the input type changes.
 		else if(e.getActionCommand().equals("fraction") || e.getActionCommand().equals("int")) {
 			currentType = e.getActionCommand();
 		}

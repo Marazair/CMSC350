@@ -1,10 +1,11 @@
 package main;
 
 public class BST<T extends Comparable<T>>{
-	BSTNode<T> root;
+	private BSTNode<T> root;
 	
-	public BST() {
-		
+	
+	public BST(T value) {
+		root = new BSTNode<T>(value);
 	}
 	
 	class BSTNode<T extends Comparable<T>>{
@@ -29,10 +30,7 @@ public class BST<T extends Comparable<T>>{
 	
 	
 	public void insertNode(T value) {
-		if (root == null)
-			root = new BSTNode<T>(value);
-		else
-			insertNodeRecursive(value, root);
+		insertNodeRecursive(value, root);
 	}
 	
 	public void insertNodeRecursive(T value, BSTNode<T> node) {
@@ -61,10 +59,10 @@ public class BST<T extends Comparable<T>>{
 		String leftValue = "";
 		String rightValue = "";
 		if(node.left != null)
-			leftValue = inOrderRecursive(node.left);
+			leftValue = inOrderRecursive(node.left) + " ";
 		if(node.right != null)
-			rightValue = inOrderRecursive(node.right); 
-		return leftValue + " " + node.value + " " + rightValue;
+			rightValue = " " + inOrderRecursive(node.right); 
+		return leftValue + node.value + rightValue;
 	}
 	
 	public String reverseOrderTraversal() {
@@ -75,10 +73,10 @@ public class BST<T extends Comparable<T>>{
 		String leftValue = "";
 		String rightValue = "";
 		if(node.left != null)
-			leftValue = reverseOrderRecursive(node.left);
+			leftValue = " " + reverseOrderRecursive(node.left);
 		if(node.right != null)
-			rightValue = reverseOrderRecursive(node.right);
-		return rightValue + " " + node.value + " " + leftValue;
+			rightValue = reverseOrderRecursive(node.right) + " ";
+		return rightValue + node.value + leftValue;
 			
 	}
 	
