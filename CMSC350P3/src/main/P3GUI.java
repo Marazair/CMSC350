@@ -130,40 +130,29 @@ public class P3GUI extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("sort")) {
-			TreeBuilder<?> tree;
-			if(fraction.isSelected()) {
-				Constructor<Fraction> constructor;
-				try {
+			try {
+				TreeBuilder<?> tree;
+				if(fraction.isSelected()) {
+					Constructor<Fraction> constructor;
 					constructor = (Constructor<Fraction>) Class.forName("main.Fraction").getConstructor(String.class);
 					tree = new TreeBuilder<Fraction>(inputField.getText(), constructor, currentOrder);
-					try {
-						tree.constructTree();
-					} 
-					catch (NumberFormatException nfe) {
-						JOptionPane.showMessageDialog(PopupFrame, "Please input the value in the proper format.");
-					}
-				} 
-				catch (NoSuchMethodException | SecurityException | ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					tree.constructTree();
 				}
-			}
-			else if (integer.isSelected()) {
-				Constructor<Integer> constructor;
-				try {
+				else if (integer.isSelected()) {
+					Constructor<Integer> constructor;
 					constructor = (Constructor<Integer>) Class.forName("java.lang.Integer").getConstructor(String.class);
 					tree = new TreeBuilder<Integer>(inputField.getText(), constructor, currentOrder);
-					try {
-						tree.constructTree();
-					} 
-					catch (NumberFormatException nfe) {
-						JOptionPane.showMessageDialog(PopupFrame, "Please input the value in the proper format.");
-					}
+					tree.constructTree();
 				} 
-				catch (NoSuchMethodException | SecurityException | ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+			}
+			catch (NoSuchMethodException | SecurityException | ClassNotFoundException ge){
+				ge.printStackTrace();
+			} 
+			catch (NumberFormatException nfe) {
+				JOptionPane.showMessageDialog(PopupFrame, "Non-numeric input.");
+			} 
+			catch (MalformedFractionException mfe) {
+				JOptionPane.showMessageDialog(PopupFrame, "Malformed fraction.");
 			}
 			
 			

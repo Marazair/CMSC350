@@ -20,7 +20,7 @@ public class TreeBuilder<T extends Comparable<T>> {
 		this.sort = sort;
 	}
 	
-	public void constructTree() throws NumberFormatException {
+	public void constructTree() throws NumberFormatException, MalformedFractionException {
 		list = getTokens();
 		tree = new BST<T> (Collections.max(list));
 		for (int i = 0; i < list.size(); i++) {
@@ -28,18 +28,38 @@ public class TreeBuilder<T extends Comparable<T>> {
 		}
 	}
 	
-	private List<T> getTokens() throws NumberFormatException {
+	public String getTree() {
+		if (sort.equals("ascend")) {
+			return tree.inOrderTraversal();
+		}
+		else {
+			return tree.inOrderTraversal();
+		}
+	}
+	
+	private List<T> getTokens() throws NumberFormatException, MalformedFractionException {
 		List<T> tokens = new ArrayList<T>();
 		Scanner scanner = new Scanner(string);
 		String currentToken;
 		
 		while(scanner.hasNext()) {
 			currentToken = scanner.next();
+			if(!currentToken.equals("/"))
+				Integer.parseInt(currentToken);
+			
 			try {
 				tokens.add(type.newInstance(currentToken));
 			}
 			catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e){
-				throw new NumberFormatException();
+				if(e.getCause() instanceof NumberFormatException) {
+					throw new NumberFormatException();
+				}
+				else if(e.getCause() instanceof MalformedFractionException) {
+					throw new MalformedFractionException();
+				}
+				else {
+					e.printStackTrace();
+				}
 			}
 			
 		}
