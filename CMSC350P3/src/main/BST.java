@@ -8,13 +8,13 @@ public class BST<T extends Comparable<T>>{
 		root = new BSTNode<T>(value);
 	}
 	
-	class BSTNode<T extends Comparable<T>>{
-		private T value;
-		private BSTNode<T> left;
-		private BSTNode<T> right;
+	class BSTNode<T2 extends Comparable<T2>>{
+		private T2 value;
+		private BSTNode<T2> left;
+		private BSTNode<T2> right;
 		private boolean read;
 		
-		BSTNode(T value) {
+		BSTNode(T2 value) {
 			this.value = value;
 			read = false;
 		}
