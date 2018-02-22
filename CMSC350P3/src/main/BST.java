@@ -1,7 +1,7 @@
 package main;
 
 public class BST<T extends Comparable<T>>{
-	BSTNode root;
+	BSTNode<T> root;
 	
 	public BST(T value) {
 		root = new BSTNode<T>(value);
@@ -9,10 +9,13 @@ public class BST<T extends Comparable<T>>{
 	
 	
 	public void insertNode(T value) {
-		insertNodeRecursive(value, root);
+		if (root == null)
+			root = new BSTNode<T>(value);
+		else
+			insertNodeRecursive(value, root);
 	}
 	
-	public void insertNodeRecursive(T value, BSTNode root) {
+	public void insertNodeRecursive(T value, BSTNode<T> root) {
 		BSTNode<T> node = new BSTNode<T>(value);
 		
 		if (value.compareTo(node.value) < 0) {
@@ -40,8 +43,8 @@ public class BST<T extends Comparable<T>>{
 	
 	class BSTNode<T extends Comparable<T>>{
 		private T value;
-		private BSTNode left;
-		private BSTNode right;
+		private BSTNode<T> left;
+		private BSTNode<T> right;
 		
 		BSTNode(T value) {
 			this.value = value;
