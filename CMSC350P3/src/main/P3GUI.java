@@ -15,6 +15,7 @@ public class P3GUI extends JPanel implements ActionListener{
 	private JRadioButton fraction;
 	private JRadioButton integer;
 	private String currentOrder;
+	private String currentType;
 	
 	private static JFrame PopupFrame = new JFrame("PopUp");
 	
@@ -60,6 +61,8 @@ public class P3GUI extends JPanel implements ActionListener{
 		integer = new JRadioButton("Integer");
 		integer.setActionCommand("int");
 		integer.setSelected(true);
+		
+		currentType = "int";
 		
 		integer.addActionListener(this);
 		
@@ -126,18 +129,19 @@ public class P3GUI extends JPanel implements ActionListener{
 		if (e.getActionCommand().equals("sort")) {
 			try {
 				TreeBuilder<?> tree;
-				if(fraction.isSelected()) {
+				if(currentType.equals("fraction")) {
 					Constructor<Fraction> constructor;
 					constructor = (Constructor<Fraction>) Class.forName("main.Fraction").getConstructor(String.class);
 					tree = new TreeBuilder<Fraction>(inputField.getText(), constructor, currentOrder);
-					tree.constructTree();
 				}
-				else if (integer.isSelected()) {
+				else {
 					Constructor<Integer> constructor;
 					constructor = (Constructor<Integer>) Class.forName("java.lang.Integer").getConstructor(String.class);
 					tree = new TreeBuilder<Integer>(inputField.getText(), constructor, currentOrder);
-					tree.constructTree();
-				} 
+				}
+				
+				tree.constructTree();
+				outputField.setText(tree.getTree());
 			}
 			catch (NoSuchMethodException | SecurityException | ClassNotFoundException ge){
 				ge.printStackTrace();
@@ -149,8 +153,12 @@ public class P3GUI extends JPanel implements ActionListener{
 				JOptionPane.showMessageDialog(PopupFrame, "Malformed fraction.");
 			}
 			
-			
 		}
-		
+		else if(e.getActionCommand().equals("ascend") || e.getActionCommand().equals("descend")) {
+			currentOrder = e.getActionCommand();
+		}
+		else if(e.getActionCommand().equals("fraction") || e.getActionCommand().equals("int")) {
+			currentType = e.getActionCommand();
+		}
 	}
 }

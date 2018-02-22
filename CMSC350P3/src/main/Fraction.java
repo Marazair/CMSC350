@@ -22,7 +22,15 @@ public class Fraction implements Comparable<Fraction>{
 	
 	@Override
 	public int compareTo(Fraction fraction) {
-		return (int)(numValue - fraction.getNum());
+		if (numValue > fraction.numValue) {
+			return 1;
+		}
+		else if (numValue < fraction.numValue) {
+			return -1;
+		}
+		else {
+			return 0;
+		}
 		
 	}
 	

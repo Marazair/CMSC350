@@ -22,7 +22,7 @@ public class TreeBuilder<T extends Comparable<T>> {
 	
 	public void constructTree() throws NumberFormatException, MalformedFractionException {
 		list = getTokens();
-		tree = new BST<T> (Collections.max(list));
+		tree = new BST<T>();
 		for (int i = 0; i < list.size(); i++) {
 			tree.insertNode(list.get(i));
 		}
