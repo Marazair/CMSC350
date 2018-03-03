@@ -81,7 +81,7 @@ public class P4GUI extends JPanel implements ActionListener{
 				Scanner fileScanner = new Scanner(file);
 				
 				while(fileScanner.hasNext()) {
-					Scanner lineScanner = new Scanner(fileScanner.next());
+					Scanner lineScanner = new Scanner(fileScanner.nextLine());
 					ArrayList<String> lineList = new ArrayList<String>();
 					spec.add(lineList);
 					
