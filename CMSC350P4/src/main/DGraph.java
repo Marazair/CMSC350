@@ -14,29 +14,8 @@ public class DGraph<T> {
 		index = 0;
 	}
 	
-	public void buildDGraphFromFile(File spec) throws FileNotFoundException {
-		if (spec.canRead()) {
-			Scanner fileScanner = new Scanner(spec);
-			
-			while(fileScanner.hasNext()) {
-				Scanner lineScanner = new Scanner(fileScanner.nextLine());
-				boolean isFirst = true;
-				
-				while(lineScanner.hasNext()) {
-					String token = lineScanner.next();
-					if(isFirst) {
-						isFirst = false;
-					}
-				}
-				
-				lineScanner.close();
-				
-			}
-			fileScanner.close();
-		}
-		else {
-			throw new FileNotFoundException();
-		}
+	public void buildDGraphFromFile(List<ArrayList<T>> spec) throws FileNotFoundException {
+		
 	}
 	
 	public void addVertex(T vertex) {

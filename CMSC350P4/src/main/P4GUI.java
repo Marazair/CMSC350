@@ -4,6 +4,8 @@ package main;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.util.*;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.border.*;
@@ -74,12 +76,30 @@ public class P4GUI extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("build")) {
 			try {
+				List<ArrayList<String>> spec = new ArrayList<ArrayList<String>>();
 				File file = new File(fileField.getText());
-				graph.buildDGraphFromFile(file);
-			}
+				Scanner fileScanner = new Scanner(file);
+				
+				while(fileScanner.hasNext()) {
+					Scanner lineScanner = new Scanner(fileScanner.next());
+					ArrayList<String> lineList = new ArrayList<String>();
+					spec.add(lineList);
+					
+					while(lineScanner.hasNext()) {
+						String token = lineScanner.next();
+						lineList.add(token);
+					}
+					lineScanner.close();
+				}
+				
+				fileScanner.close();
+				
+				graph.buildDGraphFromFile(spec);
+			} 
 			catch (FileNotFoundException fnfe) {
-				JOptionPane.showMessageDialog(PopupFrame, "File not found.");
+				JOptionPane.showMessageDialog(PopupFrame, "File did not open.");
 			}
+			
 		}
 		
 	}
