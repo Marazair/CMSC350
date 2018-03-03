@@ -14,8 +14,22 @@ public class DGraph<T> {
 		index = 0;
 	}
 	
-	public void buildDGraph(List<ArrayList<T>> spec) throws FileNotFoundException {
+	public void buildDGraph(List<ArrayList<T>> spec) {
+		int specSize = spec.size();
 		
+		for(int x = 0; x < specSize; x++) {
+			List<T> line = spec.get(x);
+			int lineSize = line.size();
+			
+			for(int y = 0; y < lineSize; y++) {
+				T token = line.get(y);
+				
+				addVertex(token);
+				if (y == 0) {
+					
+				}
+			}
+		}
 	}
 	
 	public void addVertex(T vertex) {
