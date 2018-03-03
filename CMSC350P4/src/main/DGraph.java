@@ -14,7 +14,7 @@ public class DGraph<T> {
 		index = 0;
 	}
 	
-	public void buildDGraphFromFile(List<ArrayList<T>> spec) throws FileNotFoundException {
+	public void buildDGraph(List<ArrayList<T>> spec) throws FileNotFoundException {
 		
 	}
 	
