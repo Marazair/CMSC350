@@ -14,6 +14,8 @@ public class P4GUI extends JPanel implements ActionListener{
 	private TextField orderField;
 	private DGraph<String> graph;
 	
+	private static JFrame PopupFrame = new JFrame("PopUp");
+	
 	public P4GUI() {
 		graph = new DGraph<String>();
 		
@@ -71,8 +73,13 @@ public class P4GUI extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("build")) {
-			File file = new File(fileField.getText());
-			graph.buildDGraphFromFile(file);
+			try {
+				File file = new File(fileField.getText());
+				graph.buildDGraphFromFile(file);
+			}
+			catch (FileNotFoundException fnfe) {
+				JOptionPane.showMessageDialog(PopupFrame, "File not found.");
+			}
 		}
 		
 	}
