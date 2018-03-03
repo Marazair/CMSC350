@@ -12,7 +12,7 @@ public class DGraph<T> {
 		mapTtoInteger = new HashMap<T, Integer>();
 	}
 	
-	public void buildDGraphFromFile(File specification) {
+	public void buildDGraphFromFile(File spec) {
 		
 	}
 	
