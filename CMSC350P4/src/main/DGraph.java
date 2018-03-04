@@ -21,20 +21,24 @@ public class DGraph<T> {
 			List<T> line = spec.get(x);
 			int lineSize = line.size();
 			
-			for(int y = 0; y < lineSize; y++) {
+			T first = line.get(0);
+			addVertex(first);
+			
+			for(int y = 1; y < lineSize; y++) {
 				T token = line.get(y);
 				
 				addVertex(token);
-				if (y == 0) {
-					
-				}
+				addEdge(first, token);
 			}
 		}
+		
+		System.out.println(adjacencyList);
 	}
 	
 	public void addVertex(T vertex) {
 		if(!mapTtoInteger.containsKey(vertex)){
 			mapTtoInteger.put(vertex, index);
+			adjacencyList.add(mapTtoInteger.get(vertex), new LinkedList<Integer>());
 			index++;
 		}
 	}
