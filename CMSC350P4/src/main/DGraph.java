@@ -1,3 +1,9 @@
+/*
+ * File Name: DGraph.java
+ * Name: Nick Mills
+ * Date: 2/28/18
+ * Purpose: Contains the structure for building the directed graph and providing the dependency lists.
+ */
 package main;
 
 import java.util.*;
@@ -8,8 +14,9 @@ public class DGraph<T> {
 	private Map<T, Integer> mapTtoInteger;
 	private int index;
 	private StringBuffer topOrd;
-	List<Integer> seen;
+	private List<Integer> seen;
 	
+	//Basic constructor initializes local variables to default values.
 	public DGraph() {
 		adjacencyList = new ArrayList<LinkedList<Integer>>();
 		mapTtoInteger = new HashMap<T, Integer>();
@@ -18,6 +25,7 @@ public class DGraph<T> {
 		seen = new ArrayList<Integer>();
 	}
 	
+	//Builds a directional graph based on the passed list.
 	public void buildDGraph(List<ArrayList<T>> spec) {
 		int specSize = spec.size();
 		
@@ -36,10 +44,9 @@ public class DGraph<T> {
 				addEdge(first, token);
 			}
 		}
-		
-		System.out.println(adjacencyList);
 	}
 	
+	//Adds a vertex if it does not already exist.
 	public void addVertex(T vertex) {
 		if(!mapTtoInteger.containsKey(vertex)){
 			mapTtoInteger.put(vertex, index);
@@ -48,24 +55,32 @@ public class DGraph<T> {
 		}
 	}
 	
+	//Adds an edge between passed vertices if they exist.
 	public void addEdge(T vertexFrom, T vertexTo) {
-		
 		if(mapTtoInteger.containsKey(vertexFrom) && mapTtoInteger.containsKey(vertexTo))
 			adjacencyList.get(mapTtoInteger.get(vertexFrom)).add(mapTtoInteger.get(vertexTo));
 	}
 	
+	//Contains logic to create the topological order and returns it.
 	public String topOrdGeneration(T startVertex) throws CycleDetected, InvalidClassName {
+		
+		//Make sure the class is in the map.
 		if(mapTtoInteger.containsKey(startVertex)) {
+			
 			int startIndex = mapTtoInteger.get(startVertex);
+			
+			//Clears data from previous orders.
 			seen.clear();
 			topOrd.setLength(0);
 			
+			//Adds start point to the seen list and adds the class name to the string.
 			seen.add(startIndex);
 			topOrd.append(keyFromValue(startIndex) + " ");
 			
+			//Begins recursion to find dependencies.
 			topOrdRecursive(startIndex);
 			
-			System.out.println(topOrd);
+			//Returns the class compilation order.
 			return topOrd.toString();
 		}
 		
@@ -75,24 +90,30 @@ public class DGraph<T> {
 		}
 	}
 	
+	//Finds dependencies in the list and appends them to the list of classes that need to be compiled.
 	public void topOrdRecursive(int index) throws CycleDetected {
 		int size = adjacencyList.get(index).size();
 		int currentContent;
 		
+		//Checks each class encountered for dependencies and adds it and dependent classes to the list.
 		for(int x = 0; x < size; x++) {
 			currentContent = adjacencyList.get(index).get(x);
 			
+			//Checks to see if a class has already been encountered. If not, continue.
 			if (!seen.contains(currentContent)){
 				seen.add(currentContent);
 				topOrd.append(keyFromValue(currentContent) + " ");
 				topOrdRecursive(currentContent);
 			}
+			
+			//If so, detect a cycle.
 			else {
 				throw new CycleDetected();
 			}
 		}
 	}
 	
+	//Retrieves the class name from the passed value. If it's not there, returns null.
 	private T keyFromValue(int value) {
 		for(Entry<T, Integer> entry : mapTtoInteger.entrySet()) {
 			if(value == entry.getValue())
