@@ -15,6 +15,7 @@ public class P4GUI extends JPanel implements ActionListener{
 	private TextField orderField;
 	private DGraph<String> graph;
 	private String pattern;
+	private JLabel outputLabel;
 	
 	private static JFrame PopupFrame = new JFrame("PopUp");
 	
@@ -33,6 +34,7 @@ public class P4GUI extends JPanel implements ActionListener{
 		
 		JLabel fileLabel = new JLabel("Input file name:");
 		JLabel orderLabel = new JLabel("Class to recompile:");
+		outputLabel = new JLabel("");
 		
 		fileField = new TextField("");
 		fileField.setColumns(30);
@@ -58,6 +60,7 @@ public class P4GUI extends JPanel implements ActionListener{
 		inputPanel.add(order);
 		
 		this.add(outputPanel);
+		outputPanel.add(outputLabel);
 	}
 	
 	public static void main(String[] args) {
@@ -114,7 +117,7 @@ public class P4GUI extends JPanel implements ActionListener{
 		}
 		else if (e.getActionCommand().equals("sort")) {
 			try {
-				graph.topOrdGeneration(orderField.getText());
+				outputLabel.setText(graph.topOrdGeneration(orderField.getText()));
 			}
 			catch (CycleDetected cd) {
 				JOptionPane.showMessageDialog(PopupFrame, "Cycle detected.");

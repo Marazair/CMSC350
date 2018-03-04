@@ -60,7 +60,7 @@ public class DGraph<T> {
 			topOrd.setLength(0);
 			
 			seen.add(startIndex);
-			topOrd.append(startIndex);
+			topOrd.append(startIndex + " ");
 			
 			topOrdRecursive(startIndex);
 			
@@ -82,8 +82,8 @@ public class DGraph<T> {
 			
 			if (!seen.contains(currentContent)){
 				seen.add(currentContent);
+				topOrd.append(currentContent + " ");
 				topOrdRecursive(currentContent);
-				topOrd.append(currentContent);
 			}
 			else {
 				throw new CycleDetected();
