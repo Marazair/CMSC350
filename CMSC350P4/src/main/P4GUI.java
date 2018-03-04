@@ -102,6 +102,7 @@ public class P4GUI extends JPanel implements ActionListener{
 				fileScanner.close();
 				
 				graph.buildDGraph(spec);
+				JOptionPane.showMessageDialog(PopupFrame, "Graph built successfully!");
 			} 
 			catch (FileNotFoundException fnfe) {
 				JOptionPane.showMessageDialog(PopupFrame, "File did not open.");
