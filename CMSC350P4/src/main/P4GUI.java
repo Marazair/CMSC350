@@ -95,9 +95,7 @@ public class P4GUI extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("build")) {
-			
 			try {
-				
 				//Parses the file into tokens based on lines.
 				List<ArrayList<String>> spec = new ArrayList<ArrayList<String>>();
 				File file = new File(fileField.getText());
@@ -110,12 +108,12 @@ public class P4GUI extends JPanel implements ActionListener{
 					
 					while(lineScanner.hasNext()) {
 						String token = lineScanner.next();
+						
 						if(!token.matches(pattern)) {
 							lineScanner.close();
 							fileScanner.close();
 							throw new InvalidClassName();
 						}
-						
 						lineList.add(token);
 					}
 					lineScanner.close();

@@ -26,10 +26,14 @@ public class DGraph<T> {
 	}
 	
 	//Builds a directional graph based on the passed list.
-	public void buildDGraph(List<ArrayList<T>> spec) {
+	public void buildDGraph(List<ArrayList<T>> spec) throws InvalidClassName {
 		int specSize = spec.size();
 		
+		//Reset the graph in case this isn't the first one built.
 		adjacencyList.clear();
+		mapTtoInteger.clear();
+		index = 0;
+		
 		for(int x = 0; x < specSize; x++) {
 			List<T> line = spec.get(x);
 			int lineSize = line.size();
@@ -50,15 +54,17 @@ public class DGraph<T> {
 	public void addVertex(T vertex) {
 		if(!mapTtoInteger.containsKey(vertex)){
 			mapTtoInteger.put(vertex, index);
-			adjacencyList.add(mapTtoInteger.get(vertex), new LinkedList<Integer>());
+			adjacencyList.add(index, new LinkedList<Integer>());
 			index++;
 		}
 	}
 	
 	//Adds an edge between passed vertices if they exist.
-	public void addEdge(T vertexFrom, T vertexTo) {
+	public void addEdge(T vertexFrom, T vertexTo) throws InvalidClassName {
 		if(mapTtoInteger.containsKey(vertexFrom) && mapTtoInteger.containsKey(vertexTo))
 			adjacencyList.get(mapTtoInteger.get(vertexFrom)).add(mapTtoInteger.get(vertexTo));
+		else
+			throw new InvalidClassName();
 	}
 	
 	//Contains logic to create the topological order and returns it.
