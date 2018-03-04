@@ -1,6 +1,7 @@
 package main;
 
 import java.util.*;
+import java.util.Map.*;
 
 public class DGraph<T> {
 	private List<LinkedList<Integer>> adjacencyList;
@@ -60,7 +61,7 @@ public class DGraph<T> {
 			topOrd.setLength(0);
 			
 			seen.add(startIndex);
-			topOrd.append(startIndex + " ");
+			topOrd.append(keyFromValue(startIndex) + " ");
 			
 			topOrdRecursive(startIndex);
 			
@@ -68,6 +69,7 @@ public class DGraph<T> {
 			return topOrd.toString();
 		}
 		
+		//If no match, throw InvalidClassName.
 		else {
 			throw new InvalidClassName();
 		}
@@ -82,12 +84,20 @@ public class DGraph<T> {
 			
 			if (!seen.contains(currentContent)){
 				seen.add(currentContent);
-				topOrd.append(currentContent + " ");
+				topOrd.append(keyFromValue(currentContent) + " ");
 				topOrdRecursive(currentContent);
 			}
 			else {
 				throw new CycleDetected();
 			}
 		}
+	}
+	
+	private T keyFromValue(int value) {
+		for(Entry<T, Integer> entry : mapTtoInteger.entrySet()) {
+			if(value == entry.getValue())
+				return entry.getKey();	
+		}
+		return null;
 	}
 }
