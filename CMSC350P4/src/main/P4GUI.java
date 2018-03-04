@@ -112,6 +112,17 @@ public class P4GUI extends JPanel implements ActionListener{
 			}
 			
 		}
+		else if (e.getActionCommand().equals("sort")) {
+			try {
+				graph.topOrdGeneration(orderField.getText());
+			}
+			catch (CycleDetected cd) {
+				JOptionPane.showMessageDialog(PopupFrame, "Cycle detected.");
+			} 
+			catch (InvalidClassName ice) {
+				JOptionPane.showMessageDialog(PopupFrame, "Class not found.");
+			}
+		}
 		
 	}
 
