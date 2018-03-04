@@ -6,7 +6,6 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 import java.util.List;
-
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -15,11 +14,13 @@ public class P4GUI extends JPanel implements ActionListener{
 	private TextField fileField;
 	private TextField orderField;
 	private DGraph<String> graph;
+	private String pattern;
 	
 	private static JFrame PopupFrame = new JFrame("PopUp");
 	
 	public P4GUI() {
 		graph = new DGraph<String>();
+		pattern = "Class[A-Z]";
 		
 		super.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		Border padding = BorderFactory.createEmptyBorder(10, 10, 10, 10);
@@ -87,6 +88,12 @@ public class P4GUI extends JPanel implements ActionListener{
 					
 					while(lineScanner.hasNext()) {
 						String token = lineScanner.next();
+						if(!token.matches(pattern)) {
+							lineScanner.close();
+							fileScanner.close();
+							throw new InvalidClassName();
+						}
+						
 						lineList.add(token);
 					}
 					lineScanner.close();
@@ -98,6 +105,9 @@ public class P4GUI extends JPanel implements ActionListener{
 			} 
 			catch (FileNotFoundException fnfe) {
 				JOptionPane.showMessageDialog(PopupFrame, "File did not open.");
+			}
+			catch (InvalidClassName ice) {
+				JOptionPane.showMessageDialog(PopupFrame, "File contained an invalid class.");
 			}
 			
 		}
