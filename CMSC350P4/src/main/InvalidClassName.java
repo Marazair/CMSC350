@@ -1,5 +1,5 @@
 /*
- * File Name: MalformedFractionException.java
+ * File Name: InvalidClassName.java
  * Name: Nick Mills
  * Date: 2/28/18
  * Purpose: Provide an exception to be thrown when an invalid class name is detected.

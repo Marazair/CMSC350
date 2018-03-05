@@ -1,5 +1,5 @@
 /*
- * File Name: MalformedFractionException.java
+ * File Name: CycleDetected.java
  * Name: Nick Mills
  * Date: 2/28/18
  * Purpose: Provide an exception to be thrown when a cycle is detected.
